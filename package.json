@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.13",
+    "@apollo/server": "^5.2.0",
+    "@as-integrations/next": "^4.1.0",
     "@supabase/supabase-js": "^2.90.1",
     "apollo-server": "^3.13.0",
     "apollo-server-micro": "^3.13.0",

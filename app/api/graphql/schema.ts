@@ -12,4 +12,21 @@ export const typeDefs = gql`
     payment: Boolean!
     created_at: String!
   }
+
+  type Query {
+    leads: [Lead!]!
+    lead(id: ID!): Lead
+  }
+
+  type Mutation {
+    register(
+      name: String!
+      email: String!
+      mobile: String!
+      postcode: String!
+      delivery: Boolean!
+      pickup: Boolean!
+      payment: Boolean!
+    ): Lead!
+  }
 `;
