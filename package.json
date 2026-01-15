@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@apollo/client": "^4.0.13",
+    "@supabase/supabase-js": "^2.90.1",
+    "apollo-server": "^3.13.0",
     "apollo-server-micro": "^3.13.0",
+    "dotenv": "^17.2.3",
     "graphql": "^16.12.0",
     "graphql-tag": "^2.12.6",
     "next": "16.1.2",
@@ -19,12 +22,16 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.19.29",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.2",
+    "jest": "^30.2.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-jest": "^29.4.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
   }
 }
