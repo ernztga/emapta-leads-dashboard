@@ -1,3 +1,4 @@
+import { ILead } from "@/app/lib/_interfaces/lead.interface";
 import { supabase } from "../db/supabase";
 
 export const resolvers = {
@@ -25,7 +26,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    register: async (_: unknown, args: any) => {
+    register: async (_: unknown, args: ILead) => {
       const { data, error } = await supabase
         .from("leads")
         .insert([args])
