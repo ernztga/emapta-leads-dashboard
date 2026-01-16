@@ -73,7 +73,7 @@ create table leads (
 
 ## Environment Variables
 
-Create a `.env.local` file in the root of your project:
+Create a `.env` file in the root of your project:
 
 ```env
 SUPABASE_URL=your_supabase_url
