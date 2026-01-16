@@ -7,7 +7,7 @@ export interface ILead {
   delivery: boolean | string;
   pickup: boolean | string;
   payment: boolean | string;
-  created_at?: string;
+  created_at?: string | Date;
 }
 
 export interface ILeadsData {

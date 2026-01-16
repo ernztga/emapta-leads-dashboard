@@ -16,6 +16,22 @@ export const GET_LEADS = gql`
   }
 `;
 
+export const GET_LEAD = gql`
+  query GetLead($id: ID!) {
+    lead(id: $id) {
+      id
+      name
+      email
+      mobile
+      postcode
+      delivery
+      pickup
+      payment
+      created_at
+    }
+  }
+`;
+
 export const REGISTER_LEAD = gql`
   mutation RegisterLead(
     $name: String!
