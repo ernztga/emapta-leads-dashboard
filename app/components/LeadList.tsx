@@ -1,25 +1,8 @@
 "use client";
 import { useQuery } from "@apollo/client/react";
 import LeadCard from "./LeadCard";
-import { gql } from "@apollo/client";
 import { ILead, ILeadsData } from "../lib/_interfaces/lead.interface";
-
-
-const GET_LEADS = gql`
-  query {
-    leads {
-      id
-      name
-      email
-      mobile
-      postcode
-      delivery
-      pickup
-      payment
-      created_at
-    }
-  }
-`;
+import { GET_LEADS } from "../lib/graphql/queries";
 
 export default function LeadList() {
   const { data, loading, error } = useQuery<ILeadsData>(GET_LEADS);

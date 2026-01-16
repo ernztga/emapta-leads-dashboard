@@ -1,16 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-
-interface LeadCardProps {
-  id: string;
-  name: string;
-  email: string;
-  mobile: string;
-  postcode: string;
-  delivery: boolean;
-  pickup: boolean;
-  payment: boolean;
-}
+import { ILead } from "../lib/_interfaces/lead.interface";
 
 export default function LeadCard({
   name,
@@ -20,7 +10,7 @@ export default function LeadCard({
   delivery,
   pickup,
   payment,
-}: LeadCardProps) {
+}: ILead) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}

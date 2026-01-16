@@ -4,7 +4,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "Brighte Eats",
-  description: "Lead dashboard for Brighte Eats",
+  description: "Leads dashboard for Brighte Eats",
 };
 
 export default function RootLayout({

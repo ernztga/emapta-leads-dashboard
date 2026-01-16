@@ -18,17 +18,15 @@ export const typeDefs = gql`
     lead(id: ID!): Lead
   }
 
-  input RegisterInput {
-    name: String!
-    email: String!
-    mobile: String!
-    postcode: String!
-    delivery: Boolean!
-    pickup: Boolean!
-    payment: Boolean!
-  }
-
   type Mutation {
-    register(input: RegisterInput!): Lead!
+    register(
+      name: String!
+      email: String!
+      mobile: String!
+      postcode: String!
+      delivery: Boolean!
+      pickup: Boolean!
+      payment: Boolean!
+    ): Lead!
   }
 `;

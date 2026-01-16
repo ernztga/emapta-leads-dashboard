@@ -2,7 +2,7 @@
 import { ApolloProvider } from "@apollo/client/react";
 import LeadList from "./components/LeadList";
 import RegisterForm from "./components/RegisterForm";
-import { client } from "./lib/apolloClient";
+import { client } from "./lib/graphql/apolloClient";
 
 export default function HomePage() {
   return (
@@ -12,7 +12,7 @@ export default function HomePage() {
           Brighte Eats Dashboard
         </h1>
         <RegisterForm />
-        <h2 className="text-2xl font-semibold">Leads</h2>
+        <h2 className="text-2xl font-semibold flex justify-center">Current Leads</h2>
         <LeadList />
       </main>
     </ApolloProvider>

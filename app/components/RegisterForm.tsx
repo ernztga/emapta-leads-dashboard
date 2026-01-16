@@ -2,42 +2,85 @@
 import { useMutation } from "@apollo/client/react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { gql } from "@apollo/client";
+import { GET_LEADS, REGISTER_LEAD } from "../lib/graphql/queries";
+import { ILead } from "../lib/_interfaces/lead.interface";
 
-const REGISTER_LEAD = gql`
-  mutation RegisterLead($input: RegisterInput!) {
-    register(input: $input) { # Send the whole object at once
-      id
-      name
-    }
-  }
-`;
+type FormErrors = Partial<ILead>;
 
+const initialForm = {
+  name: "",
+  email: "",
+  mobile: "",
+  postcode: "",
+  delivery: false,
+  pickup: false,
+  payment: false,
+};
 export default function RegisterForm() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    postcode: "",
-    delivery: false,
-    pickup: false,
-    payment: false,
-  });
+  const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState<FormErrors>({});
 
   const [registerLead, { loading, error }] = useMutation(REGISTER_LEAD, {
-    variables: { input: form },
-    onCompleted: () => alert("Lead registered!"),
+    refetchQueries: [{ query: GET_LEADS }],
+    awaitRefetchQueries: true, // ensures UI waits for refresh
+    onCompleted: () => {
+      setForm(initialForm);
+      setErrors({});
+    },
   });
+
+  const validateForm = () => {
+    const missingFields: string[] = [];
+
+    if (!form.name.trim()) missingFields.push("name");
+    if (!form.email.trim()) missingFields.push("email");
+    if (!form.mobile.trim()) missingFields.push("mobile");
+    if (!form.postcode.trim()) missingFields.push("postcode");
+
+    if (!form.delivery && !form.pickup && !form.payment) {
+      missingFields.push("delivery | pickup | payment");
+    }
+
+    if (missingFields.length > 0) {
+      console.error(
+        `Form validation failed. Missing/invalid fields: ${missingFields.join(
+          ", "
+        )}`
+      );
+
+      const fieldErrors: FormErrors = {};
+      missingFields.forEach((field) => {
+        fieldErrors[field as keyof typeof form] = `Field: ${field} is required`;
+      });
+
+      console.log(fieldErrors);
+
+      setErrors(fieldErrors);
+      return false;
+    }
+
+    setErrors({});
+    return true;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const isValid = validateForm();
+    if (!isValid) return;
+
+    await registerLead({
+      variables: form,
+    });
+  };
 
   return (
     <motion.form
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      onSubmit={(e) => {
-        e.preventDefault();
-        registerLead();
-      }}
-      className="bg-white p-6 rounded-2xl shadow-md space-y-4"
+      onSubmit={handleSubmit}
+      className="bg-[#FEEABC] p-10 rounded-2xl shadow-md space-y-4 justify-center
+flex-col"
     >
       <h2 className="text-xl font-semibold">Register New Lead</h2>
       <input
@@ -71,6 +114,7 @@ export default function RegisterForm() {
       <div className="flex gap-4">
         <label>
           <input
+            className="cursor-pointer"
             type="checkbox"
             checked={form.delivery}
             onChange={(e) => setForm({ ...form, delivery: e.target.checked })}
@@ -79,6 +123,7 @@ export default function RegisterForm() {
         </label>
         <label>
           <input
+            className="cursor-pointer"
             type="checkbox"
             checked={form.pickup}
             onChange={(e) => setForm({ ...form, pickup: e.target.checked })}
@@ -87,6 +132,7 @@ export default function RegisterForm() {
         </label>
         <label>
           <input
+            className="cursor-pointer"
             type="checkbox"
             checked={form.payment}
             onChange={(e) => setForm({ ...form, payment: e.target.checked })}
@@ -96,12 +142,16 @@ export default function RegisterForm() {
       </div>
       <button
         type="submit"
-        className="bg-primary text-white px-4 py-2 rounded-xl hover:bg-red-500 transition"
+        className="bg-[#C3D09A] text-white px-4 py-2 rounded-xl hover:bg-primary transition cursor-pointer"
       >
         Register Lead
       </button>
       {loading && <p>Submitting...</p>}
-      {error && <p className="text-red-500">Error submitting lead</p>}
+      {Object.keys(errors).length > 0 && (
+        <p className="text-red-500 text-sm">
+          Missing/invalid fields: {JSON.stringify(Object.keys(errors))}
+        </p>
+      )}
     </motion.form>
   );
 }

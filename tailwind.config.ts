@@ -7,7 +7,7 @@ module.exports = {
         sans: ["Inter", "ui-sans-serif", "system-ui"],
       },
       colors: {
-        primary: "#FF6B6B", // Brighte-style accent
+        primary: "#4F622E", // Brighte-style accent
         secondary: "#1A1A1A",
       },
     },

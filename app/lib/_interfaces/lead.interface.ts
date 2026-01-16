@@ -4,10 +4,10 @@ export interface ILead {
   email: string;
   mobile: string;
   postcode: string;
-  delivery: boolean;
-  pickup: boolean;
-  payment: boolean;
-  created_at: string;
+  delivery: boolean | string;
+  pickup: boolean | string;
+  payment: boolean | string;
+  created_at?: string;
 }
 
 export interface ILeadsData {
