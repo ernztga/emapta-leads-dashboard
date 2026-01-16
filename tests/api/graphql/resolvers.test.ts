@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabase } from "../../../app/api/db/supabase";
 import { resolvers } from "../../../app/api/schema/resolvers";
 
-jest.mock("@/lib/supabase");
+jest.mock("@/api/db/supabase", () => ({
+  supabase: {
+    from: jest.fn(),
+  },
+}));
 
 describe("GraphQL Resolvers", () => {
   const mockSupabase = supabase as jest.Mocked<typeof supabase>;

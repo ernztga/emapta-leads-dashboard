@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing/react";
 import RegisterForm from "../../app/components/RegisterForm";
-import { REGISTER_LEAD, GET_LEADS } from "@/app/lib/graphql/queries";
+import { REGISTER_LEAD, GET_LEADS } from "../../app/lib/graphql/queries";
 
 const mocks = [
   {
@@ -14,7 +14,7 @@ const mocks = [
         postcode: "2000",
         delivery: true,
         pickup: false,
-        payment: true,
+        payment: false,
       },
     },
     result: { data: { register: { id: "1" } } },
@@ -44,6 +44,35 @@ test("submits form and calls refetch", async () => {
   fireEvent.change(screen.getByPlaceholderText(/Postcode/i), {
     target: { value: "2000" },
   });
+  fireEvent.click(screen.getByLabelText(/Delivery/i));
+
+  fireEvent.click(screen.getByRole("button", { name: /Register/i }));
+
+  await waitFor(() => {
+    expect(screen.getByPlaceholderText(/Name/i)).toHaveValue("");
+  });
+});
+
+test("submits form and resets after success", async () => {
+  render(
+    <MockedProvider mocks={mocks}>
+      <RegisterForm />
+    </MockedProvider>
+  );
+
+  fireEvent.change(screen.getByPlaceholderText(/Name/i), {
+    target: { value: "Jane" },
+  });
+  fireEvent.change(screen.getByPlaceholderText(/Email/i), {
+    target: { value: "jane@test.com" },
+  });
+  fireEvent.change(screen.getByPlaceholderText(/Mobile/i), {
+    target: { value: "123" },
+  });
+  fireEvent.change(screen.getByPlaceholderText(/Postcode/i), {
+    target: { value: "2000" },
+  });
+
   fireEvent.click(screen.getByLabelText(/Delivery/i));
 
   fireEvent.click(screen.getByRole("button", { name: /Register/i }));

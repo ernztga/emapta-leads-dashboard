@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { MockedProvider } from "@apollo/client/testing/react";
 import LeadList from "../../app/components/LeadList";
-import { GET_LEADS } from "@/app/lib/graphql/queries";
+import { GET_LEADS } from "../../app/lib/graphql/queries";
 
 const mocks = [
   {
