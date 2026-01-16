@@ -85,7 +85,7 @@ SUPABASE_SECRET_KEY=your_supabase_service_role_key
 
 ## Installation
 
-1. Clone the repository:
+1. In your terminal or terminal of your IDE, clone the repository:
 
 ```bash
 git clone https://github.com/ernztga/emapta-leads-dashboard.git
