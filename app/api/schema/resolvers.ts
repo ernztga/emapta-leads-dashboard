@@ -25,10 +25,10 @@ export const resolvers = {
   },
 
   Mutation: {
-    register: async (_: unknown, args: any) => {
+    register: async (_: unknown, { input }: { input: any }) => {
       const { data, error } = await supabase
         .from("leads")
-        .insert([args])
+        .insert([input])
         .select()
         .single();
 
