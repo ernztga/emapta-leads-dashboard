@@ -82,7 +82,7 @@ export default function RegisterForm() {
       className="bg-[#FEEABC] p-10 rounded-2xl shadow-md space-y-4 justify-center
 flex-col"
     >
-      <h2 className="text-xl font-semibold">Register New Lead</h2>
+      <h2 className="text-xl font-semibold">Register New Customer</h2>
       <input
         type="text"
         placeholder="Name"
@@ -111,6 +111,8 @@ flex-col"
         onChange={(e) => setForm({ ...form, postcode: e.target.value })}
         className="w-full p-2 border rounded-md"
       />
+
+      <h4 className="font-bold">Services interested in:</h4>
       <div className="flex gap-4">
         <label>
           <input
